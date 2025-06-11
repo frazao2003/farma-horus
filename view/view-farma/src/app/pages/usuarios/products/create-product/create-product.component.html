@@ -1,0 +1,58 @@
+<div class="bg-gray-950 text-white">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="max-w-3xl mx-auto p-6 c rounded-2xl shadow-md space-y-6">
+    <h2 class="text-2xl font-bold text-center">{{ editing ? 'Editar Produto' : 'Cadastro de Produto' }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Descrição</label>
+        <input formControlName="description" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['description'].invalid && f['description'].dirty" />
+        <div *ngIf="f['description'].invalid && f['description'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['description'].errors?.['required']">Descrição é obrigatória.</div>
+          <div *ngIf="f['description'].errors?.['minlength']">Tamanho inválido.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Unidade</label>
+        <input formControlName="unit" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['unit'].invalid && f['unit'].dirty" />
+        <div *ngIf="f['unit'].invalid && f['unit'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['unit'].errors?.['required']">Unidade é obrigatória.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Fabricante</label>
+        <input formControlName="manufacturer" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['manufacturer'].invalid && f['manufacturer'].dirty" />
+        <div *ngIf="f['manufacturer'].invalid && f['manufacturer'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['manufacturer'].errors?.['required']">Fabricante é obrigatório.</div>
+          <div *ngIf="f['manufacturer'].errors?.['minlength']">Tamanho inválido.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Composição</label>
+        <input formControlName="composicao" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['composicao'].invalid && f['composicao'].dirty" />
+        <div *ngIf="f['composicao'].invalid && f['composicao'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['composicao'].errors?.['required']">Composição é obrigatória.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center">
+      <button type="submit" [disabled]="productForm.invalid"
+        class="bg-blue-600 text-white px-6 py-2 rounded-xl transition hover:bg-green-700 disabled:bg-gray-500 disabled:cursor-not-allowed">
+        {{ editing ? 'Atualizar' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,89 @@
+<div class="stock-entry-container">
+  <h2>Entrada de Estoque</h2>
+
+  <div class="grid-layout">
+    <div class="form-section">
+      <h3>Adicionar Produto ao Lote</h3>
+      <form [formGroup]="stockEntryForm" (ngSubmit)="addToList()">
+        <div class="form-group">
+          <label for="productName">Produto:</label>
+          <div class="input-with-button-group">
+            <input type="text" id="productName" formControlName="productName" readonly placeholder="Selecione um produto..." />
+            <button pButton type="button" icon="pi pi-search" label="Selecionar" (click)="openProductSelectionModal()" class="p-button-sm p-button-info"></button>
+          </div>
+          <div *ngIf="stockEntryForm.get('productName')?.invalid && stockEntryForm.get('productName')?.touched" class="error-message">
+            Um produto deve ser selecionado.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="codLot">Código do Lote:</label>
+          <input pInputText type="text" id="codLot" formControlName="codLot" placeholder="Ex: LOTE001" />
+          <div *ngIf="stockEntryForm.get('codLot')?.invalid && stockEntryForm.get('codLot')?.touched" class="error-message">
+            O código do lote é obrigatório.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="expiationDate">Data de Expiração:</label>
+          <p-calendar id="expiationDate" formControlName="expiationDate" dateFormat="dd/mm/yy" [showIcon]="true" inputId="calendar-icon"></p-calendar>
+          <div *ngIf="stockEntryForm.get('expiationDate')?.invalid && stockEntryForm.get('expiationDate')?.touched" class="error-message">
+            A data de expiração é obrigatória.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Quantidade:</label>
+          <input pInputText type="number" id="amount" formControlName="amount" min="1" placeholder="Ex: 100" />
+          <div *ngIf="stockEntryForm.get('amount')?.invalid && stockEntryForm.get('amount')?.touched" class="error-message">
+            A quantidade é obrigatória e deve ser no mínimo 1.
+          </div>
+        </div>
+
+        <button pButton type="submit" label="Adicionar à Lista" class="add-button" [disabled]="stockEntryForm.invalid"></button>
+      </form>
+    </div>
+
+    <div class="table-section">
+      <h3>Itens para Entrada de Estoque</h3>
+      <p-table [value]="stockProductsList" [scrollable]="true" scrollHeight="400px"
+               styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Produto</th>
+            <th>Lote</th>
+            <th>Expiração</th>
+            <th>Qtd</th>
+            <th>Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ selectedProductForEntry ? selectedProductForEntry.description : 'N/A' }}</td>
+            <td>{{ item.codLot }}</td>
+            <td>{{ item.expiationDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ item.amount }}</td>
+            <td>
+              <button pButton icon="pi pi-times" (click)="removeItem(rowIndex)" class="p-button-sm p-button-danger p-button-outlined"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5" class="text-center py-4 text-gray-400">Nenhum item adicionado.</td>
+            </tr>
+        </ng-template>
+      </p-table>
+
+      <button pButton type="button" label="Finalizar Entrada de Estoque" (click)="finalizeStockEntry()"
+              class="finalize-button" [disabled]="stockProductsList.length === 0"></button>
+    </div>
+  </div>
+</div>
+
+<app-products
+  *ngIf="isProductListModalOpen"
+  [isModal]="true"
+  (productSelected)="onProductSelected($event)"
+  (modalClose)="onModalClose()">
+</app-products>

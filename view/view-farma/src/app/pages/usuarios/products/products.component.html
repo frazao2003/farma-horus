@@ -1,0 +1,133 @@
+<!-- src/app/pages/usuarios/products/products.component.html -->
+
+<app-change-sector *ngIf="!isModal"></app-change-sector>
+<!-- Atenção: Se 'app-simple-sidebar' é o mesmo que 'SidebarComponent', use 'SidebarComponent' aqui -->
+<app-simple-sidebar *ngIf="!isModal" [ecode]="ecode"></app-simple-sidebar>
+
+<div class="main-wrapper" [ngClass]="{'modal-overlay': isModal, 'normal-page-wrapper': !isModal}">
+
+  <div class="row-layout" *ngIf="!isModal">
+    <div class="sidebar-column">
+      <!-- Se houver conteúdo específico para a coluna da barra lateral aqui, adicione-o -->
+    </div>
+    <div class="content-column">
+      <div class="p-6">
+        <h1 class="text-4xl font-semibold mb-8 text-white" *ngIf="!isModal">Produtos</h1>
+
+        <a *ngIf="!isModal" [routerLink]="['/', ecode, 'create-product']"
+          class="hover:bg-gray-700 block mb-4 w-fit px-4 py-2 rounded-lg transition-colors duration-200">Criar
+          Produto</a>
+
+        <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden">
+          <div class="p-4" *ngIf="!isModal">
+            <div class="relative">
+              <input pInputText type="text" placeholder="Pesquisar..." (input)="filtrarGlobal($event, dt)"
+                class="pl-10 pr-4 py-2 rounded-xl bg-gray-800 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring focus:border-blue-500 w-full" />
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                <i class="pi pi-search"></i>
+              </div>
+            </div>
+          </div>
+
+          <p-table #dt [value]="listInProduct"
+            [globalFilterFields]="['description', 'unit', 'manufacturer', 'composicao']" [responsiveLayout]="'scroll'"
+            styleClass="w-full p-datatable-sm p-datatable-gridlines p-datatable-striped p-datatable-compact">
+
+            <!-- CORREÇÃO: Conteúdo do cabeçalho adicionado aqui -->
+            <ng-template pTemplate="header">
+              <tr class="bg-gray-800 text-gray-400 text-xs uppercase">
+                <th class="px-2 py-1.5">ID</th>
+                <th class="px-2 py-1.5">Descrição</th>
+                <th class="px-2 py-1.5">Unidade</th>
+                <th class="px-2 py-1.5">Fabricante</th>
+                <th class="px-2 py-1.5">Composição</th>
+                <th class="px-2 py-1.5">Ações</th> <!-- Adicione uma coluna para ações, se houver -->
+              </tr>
+            </ng-template>
+
+            <!-- CORREÇÃO: Conteúdo do corpo da tabela adicionado aqui -->
+            <ng-template pTemplate="body" let-product let-i="rowIndex">
+              <tr [ngClass]="i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-800'"
+                class="hover:bg-gray-600 transition-all text-xs text-gray-300">
+                <td class="px-2 py-1.5">{{ product.id }}</td>
+                <td class="px-2 py-1.5">{{ product.description }}</td>
+                <td class="px-2 py-1.5">{{ product.unit }}</td>
+                <td class="px-2 py-1.5">{{ product.manufacturer }}</td>
+                <td class="px-2 py-1.5">{{ product.composicao }}</td>
+                <td class="px-2 py-1.5">
+                  <!-- Exemplo de botões de ação (editar/excluir) -->
+                  <button pButton icon="pi pi-pencil" class="p-button-sm p-button-outlined p-button-info mr-2"
+                    [routerLink]="['/', ecode, product.id, 'update-product']" pTooltip="Editar"
+                    tooltipPosition="top"></button>
+                  <button pButton icon="pi pi-trash" class="p-button-sm p-button-outlined p-button-danger"
+                    pTooltip="Excluir" tooltipPosition="top"></button>
+                </td>
+              </tr>
+            </ng-template>
+
+            <!-- CORREÇÃO: Mensagem de tabela vazia adicionada aqui -->
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6" class="text-center py-4 text-gray-400">Nenhum produto encontrado.</td>
+              </tr>
+            </ng-template>
+
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-content-area" *ngIf="isModal">
+    <button class="close-modal-button" (click)="closeModal()">&times;</button>
+
+    <div class="modal-table-wrapper bg-gray-900 rounded-xl shadow-lg overflow-hidden">
+      <div class="p-4 relative">
+        <input pInputText type="text" placeholder="Pesquisar produtos..." (input)="filtrarGlobal($event, dt)"
+          class="pl-10 pr-4 py-2 rounded-xl bg-gray-800 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring focus:border-blue-500 w-full" />
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+          <i class="pi pi-search"></i>
+        </div>
+      </div>
+      <p-table #dt [value]="listInProduct" [globalFilterFields]="['description', 'unit', 'manufacturer', 'composicao']"
+        [responsiveLayout]="'scroll'"
+        styleClass="w-full p-datatable-sm p-datatable-gridlines p-datatable-striped p-datatable-compact">
+
+        <ng-template pTemplate="header">
+          <tr class="bg-gray-800 text-gray-400 text-xs uppercase">
+            <th class="px-2 py-1.5">ID</th>
+            <th class="px-2 py-1.5">Descrição</th>
+            <th class="px-2 py-1.5">Unidade</th>
+            <th class="px-2 py-1.5">Fabricante</th>
+            <th class="px-2 py-1.5">Composição</th>
+            <th class="px-2 py-1.5">Selecionar</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-product let-i="rowIndex">
+          <tr [ngClass]="i % 2 === 0 ? 'bg-gray-800' : 'bg-gray-800'"
+            class="hover:bg-gray-600 transition-all text-xs text-gray-300 cursor-pointer"
+            (click)="selectProduct(product)">
+            <td class="px-2 py-1.5">{{ product.id }}</td>
+            <td class="px-2 py-1.5">{{ product.description }}</td>
+            <td class="px-2 py-1.5">{{ product.unit }}</td>
+            <td class="px-2 py-1.5">{{ product.manufacturer }}</td>
+            <td class="px-2 py-1.5">{{ product.composicao }}</td>
+            <td class="px-2 py-1.5">
+              <button pButton icon="pi pi-check" class="p-button-sm p-button-outlined p-button-success"
+                (click)="selectProduct(product); $event.stopPropagation();" pTooltip="Selecionar"
+                tooltipPosition="top"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6" class="text-center py-4 text-gray-400">Nenhum produto encontrado.</td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
+</div>

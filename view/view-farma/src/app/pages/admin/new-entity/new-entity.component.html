@@ -1,0 +1,107 @@
+<div class="bg-gray-950 text-white">
+  <form [formGroup]="entityForm" (ngSubmit)="onSubmit()"
+    class="max-w-3xl mx-auto p-6 c rounded-2xl shadow-md space-y-6">
+    <h2 class="text-2xl font-bold text-center">Cadastro de Entidade</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">ECODE</label>
+        <input formControlName="ecode" mask="000000" placeholder="Código do TCE" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['ecode'].invalid && f['ecode'].dirty" type="text" />
+        <div *ngIf="f['ecode'].invalid && f['ecode'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['ecode'].errors?.['required']">ECODE é obrigatório.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Nome</label>
+        <input formControlName="name" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['name'].invalid && f['name'].dirty" type="text" />
+        <div *ngIf="f['name'].invalid && f['name'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['name'].errors?.['required']">Nome é obrigatório.</div>
+          <div *ngIf="f['name'].errors?.['minlength']">Nome deve ter no mínimo 3 caracteres.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">CEP</label>
+        <input formControlName="cep" mask="00000-000" placeholder="00000-000" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['cep'].invalid && f['cep'].dirty" type="text" />
+        <div *ngIf="f['cep'].invalid && f['cep'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['cep'].errors?.['required']">CEP é obrigatório.</div>
+          <div *ngIf="f['cep'].errors?.['pattern']">Formato de CEP inválido. Use 99999-999.</div>
+          <div *ngIf="f['cep'].errors?.['cepValidate']">CEP não encontrado na API.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Telefone</label>
+        <input formControlName="phoneNumber" mask="(00) 00000-0000" placeholder="(00) 00000-0000"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['phoneNumber'].invalid && f['phoneNumber'].dirty" type="text" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Número</label>
+        <input formControlName="numberAddress" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['numberAddress'].invalid && f['numberAddress'].dirty" type="text" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Endereço</label>
+        <input formControlName="address" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['address'].invalid && f['address'].dirty" type="text" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Estado</label>
+        <input formControlName="estado" mask="AA" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['estado'].invalid && f['estado'].dirty" type="text" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Cidade</label>
+        <input formControlName="cidade" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['cidade'].invalid && f['cidade'].dirty" type="text" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Bairro</label>
+        <input formControlName="bairro" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['bairro'].invalid && f['bairro'].dirty" type="text" />
+      </div>
+
+
+
+      <div>
+        <label class="block text-sm font-medium mb-1">CNPJ</label>
+        <input formControlName="cnpj" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400" [class.border-red-500]="f['cnpj'].invalid && f['cnpj'].dirty"
+          type="text" />
+        <div *ngIf="f['cnpj'].invalid && f['cnpj'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['cnpj'].errors?.['required']">CNPJ é obrigatório.</div>
+          <div *ngIf="f['cnpj'].errors?.['pattern']">CNPJ inválido (somente números, 14 dígitos).</div>
+          <div *ngIf="f['cnpj'].errors?.['cnpjValidate']">CNPJ inválido (verifique os dígitos de verificação).</div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium mb-1">Email</label>
+        <input formControlName="email" placeholder="email@gmail.com" class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['email'].invalid && f['email'].dirty" type="email" />
+        <div *ngIf="f['email'].invalid && f['email'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['email'].errors?.['required']">Email é obrigatório.</div>
+          <div *ngIf="f['email'].errors?.['email']">Formato de email inválido.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" [disabled]="entityForm.invalid" class="bg-blue-600 text-white px-6 py-2 rounded-xl transition
+         hover:bg-green-700 disabled:bg-gray-500 disabled:cursor-not-allowed">
+        Salvar
+      </button>
+
+    </div>
+  </form>
+</div>

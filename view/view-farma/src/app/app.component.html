@@ -1,0 +1,8 @@
+<header *ngIf="showHeader">
+    <app-change-sector></app-change-sector>
+    <app-simple-sidebar [ecode]="ecode"></app-simple-sidebar>
+</header>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>

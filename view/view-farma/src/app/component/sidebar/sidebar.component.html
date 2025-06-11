@@ -1,0 +1,32 @@
+<!-- sidebar.component.html -->
+<div *ngIf="ecode === null; else otherLayout" class="bg-gray-800 text-white h-screen w-64 fixed top-0 left-0 shadow-lg">
+    <h2 class="text-xl font-bold p-4">ADMINISTRADOR</h2>
+    <ul class="mt-4">
+      <li class="hover:bg-gray-700">
+        <a [routerLink]="['/', '999025', 'home', 'admin']"  class="block p-4">Entidades</a>
+      </li>
+      <li class="hover:bg-gray-700">
+        <a [routerLink]="['/', '999025', 'new-entity']"  class="block p-4">Nova Entidade</a>
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #otherLayout>
+    <div class="bg-gray-800 text-white h-screen w-64 fixed top-0 left-0 shadow-lg">
+      <h2 class="text-xl font-bold p-4">{{entityName}} - {{ecode}}</h2>
+      <ul class="mt-4">
+        <li class="hover:bg-gray-700">
+          <a [routerLink]="['/', ecode, 'home']" class="block p-4">Estoque</a>
+        </li>
+        <li class="hover:bg-gray-700">
+          <a [routerLink]="['/', ecode, 'sectors']" class="block p-4">Setores</a>
+        </li>
+        <li class="hover:bg-gray-700">
+          <a [routerLink]="['/', ecode, 'products']" class="block p-4">Produtos</a>
+        </li>
+        <li class="hover:bg-gray-700">
+          <a [routerLink]="['/', ecode, 'entry']" class="block p-4">Entrada</a>
+        </li>
+      </ul>
+    </div>
+  </ng-template>

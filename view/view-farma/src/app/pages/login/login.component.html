@@ -1,0 +1,27 @@
+<div class="container-fluid bg-dark vh-100">
+  <div class="row h-100">
+    <div class="col-md-6 bg-light d-flex flex-column align-items-center justify-content-center">
+      <div class="text-center mb-4">
+        <h1 class="mt-2 fw-light" *ngIf="entity">{{ entity.name }}</h1>
+        <p class="mb-0 ">Controle de farmácia</p>
+      </div>
+      <form class="w-75" (ngSubmit)="login()">
+        <div class="mb-3">
+          <label for="email" class="form-label"><i class="bi bi-person-fill me-2"></i>Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Digite seu email" name="email" [(ngModel)]="authenticationDTO.login">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label"><i class="bi bi-lock-fill me-2"></i>Senha</label>
+          <input type="password" class="form-control" id="password" placeholder="Digite sua senha" name="password" [(ngModel)]="authenticationDTO.password">
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6 bg-secondary d-none d-md-flex align-items-center justify-content-center" style="background-image: url(assets/svg/blog.jpg); background-size: cover; background-position: center;">
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

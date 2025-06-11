@@ -1,0 +1,143 @@
+<div class="bg-gray-950 text-white">
+  <form [formGroup]="sectorForm" (ngSubmit)="onSubmit()" class="max-w-3xl mx-auto p-6 c rounded-2xl shadow-md space-y-6">
+    <h2 class="text-2xl font-bold text-center">{{ editing ? 'Editar Setor' : 'Cadastro de Setor' }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- Nome -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Nome</label>
+        <input formControlName="name" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['name'].invalid && f['name'].dirty" />
+        <div *ngIf="f['name'].invalid && f['name'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['name'].errors?.['required']">Nome é obrigatório.</div>
+          <div *ngIf="f['name'].errors?.['minlength']">Tamanho inválido</div>
+        </div>
+      </div>
+
+      <!-- CNES -->
+      <div>
+        <label class="block text-sm font-medium mb-1">CNES</label>
+        <input formControlName="cnes" type="text" mask="000000"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['cnes'].invalid && f['cnes'].dirty" />
+        <div *ngIf="f['cnes'].invalid && f['cnes'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['cnes'].errors?.['required']">CNES é obrigatório.</div>
+        </div>
+      </div>
+
+      <!-- Nome do responsável -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Responsável</label>
+        <input formControlName="nameResponsible" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['nameResponsible'].invalid && f['nameResponsible'].dirty" />
+        <div *ngIf="f['nameResponsible'].invalid && f['nameResponsible'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['nameResponsible'].errors?.['required']">Responsável é obrigatório.</div>
+          <div *ngIf="f['nameResponsible'].errors?.['minlength']">Tamanho inválido</div>
+        </div>
+      </div>
+
+      <!-- CPF -->
+      <div>
+        <label class="block text-sm font-medium mb-1">CPF do Responsável</label>
+        <input formControlName="cpfResponsible" type="text" mask="000.000.000-00" placeholder="000.000.000-00"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['cpfResponsible'].invalid && f['cpfResponsible'].dirty" />
+        <div *ngIf="f['cpfResponsible'].invalid && f['cpfResponsible'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['cpfResponsible'].errors?.['required']">CPF é obrigatório.</div>
+          <div *ngIf="f['cpfResponsible'].errors?.['cpfValidate']">CPF inválido (verifique os dígitos de verificação).</div>
+        </div>
+      </div>
+
+      <!-- CRF -->
+      <div>
+        <label class="block text-sm font-medium mb-1">CRF</label>
+        <input formControlName="crf" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['crf'].invalid && f['crf'].dirty" />
+        <div *ngIf="f['crf'].invalid && f['crf'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['crf'].errors?.['required']">CRF é obrigatório.</div>
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Endereço</label>
+        <input formControlName="address" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['address'].invalid && f['address'].dirty" />
+        <div *ngIf="f['address'].invalid && f['address'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['address'].errors?.['required']">Endereço é obrigatório.</div>
+        </div>
+      </div>
+
+      <!-- Número -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Número</label>
+        <input formControlName="numberAddress" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['numberAddress'].invalid && f['numberAddress'].dirty" />
+        <div *ngIf="f['numberAddress'].invalid && f['numberAddress'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['numberAddress'].errors?.['required']">Número é obrigatório.</div>
+        </div>
+      </div>
+
+      <!-- Estado -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Estado</label>
+        <input formControlName="estado" type="text" mask="AA" placeholder="AA"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['estado'].invalid && f['estado'].dirty" />
+        <div *ngIf="f['estado'].invalid && f['estado'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['estado'].errors?.['required']">Estado é obrigatório.</div>
+        </div>
+      </div>
+
+      <!-- Cidade -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Cidade</label>
+        <input formControlName="cidade" type="text"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['cidade'].invalid && f['cidade'].dirty" />
+        <div *ngIf="f['cidade'].invalid && f['cidade'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['cidade'].errors?.['required']">Cidade é obrigatória.</div>
+        </div>
+      </div>
+
+      <!-- CEP -->
+      <div>
+        <label class="block text-sm font-medium mb-1">CEP</label>
+        <input formControlName="cep" type="text" mask="00000-000" placeholder="00000-000"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['cep'].invalid && f['cep'].dirty" />
+        <div *ngIf="f['cep'].invalid && f['cep'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['cep'].errors?.['required']">CEP é obrigatório.</div>
+          <div *ngIf="f['cep'].errors?.['pattern']">Formato de CEP inválido. Use 99999-999.</div>
+          <div *ngIf="f['cep'].errors?.['cepValidate']">CEP não encontrado na API.</div>
+        </div>
+      </div>
+
+      <!-- Telefone -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Telefone</label>
+        <input formControlName="phoneNumber" type="text" mask="(00) 00000-0000" placeholder="(00) 00000-0000"
+          class="w-full border p-2 rounded-md bg-gray-900 text-white placeholder-gray-400"
+          [class.border-red-500]="f['phoneNumber'].invalid && f['phoneNumber'].dirty" />
+        <div *ngIf="f['phoneNumber'].invalid && f['phoneNumber'].dirty" class="text-sm text-red-600 mt-1">
+          <div *ngIf="f['phoneNumber'].errors?.['required']">Telefone é obrigatório.</div>
+          <div *ngIf="f['phoneNumber'].errors?.['minlength']">Tamanho inválido</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center">
+      <button type="submit" [disabled]="sectorForm.invalid"
+        class="bg-blue-600 text-white px-6 py-2 rounded-xl transition hover:bg-green-700 disabled:bg-gray-500 disabled:cursor-not-allowed">
+        {{ editing ? 'Atualizar' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</div>
