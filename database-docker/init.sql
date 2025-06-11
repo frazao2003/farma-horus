@@ -1,0 +1,1 @@
+CREATE DATABASE horus_db;
